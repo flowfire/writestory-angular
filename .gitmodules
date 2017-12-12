@@ -1,0 +1,3 @@
+[submodule "fffmwk"]
+	path = fffmwk
+	url = git@github.com:flowfire/fffmwk.git

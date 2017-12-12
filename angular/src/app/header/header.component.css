@@ -1,0 +1,25 @@
+mat-toolbar {
+    position: relative;
+    z-index: 99;
+}
+
+header {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.title {
+    font-family: 'Barrio';
+    font-size: 30px;
+    align-self: center;
+}
+
+.middle {
+    flex: 1;
+}
+
+.blank {
+    flex: 0 0.5rem;
+}

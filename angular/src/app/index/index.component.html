@@ -1,0 +1,8 @@
+<div class="root">
+    <mat-card>
+        <section mat-ripple [routerLink]="['/story/' + i]" *ngFor="let i of titles;let i = index;">
+            很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦很久很久以前，有一个啦啦啦啦
+        </section>
+        <mat-paginator [length]="pageCount" [pageSize]="20" (page)="onPage($event)"></mat-paginator>
+    </mat-card>
+</div>

@@ -1,0 +1,23 @@
+<mat-card [@state]="innerState">
+    <mat-list>
+        <mat-list-item *ngIf="commentLoading; else commentLoaded">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-list-item>
+        <ng-template #commentLoaded>
+            <ng-container *ngIf="comments.length == 0; else commentEmpty">
+                <mat-list-item *ngFor="let comment of comments">AAA：<button mat-icon-button><mat-icon>reply</mat-icon></button></mat-list-item>
+            </ng-container>
+            <ng-template #commentEmpty>
+                没有评论
+            </ng-template>
+        </ng-template>
+    </mat-list>
+    <mat-form-field>
+        <textarea matInput placeholder="评论" [disabled]="!isLogin"></textarea>
+    </mat-form-field>
+    <section class="submit-actions">
+        <button mat-raised-button color="primary" [disabled]="!isLogin">评论</button>
+        <mat-hint *ngIf="!isLogin">您需要先登陆才能发表评论</mat-hint>
+        <button mat-button class="close" (click)="innerState = 'hide'">收起</button>
+    </section>
+</mat-card>

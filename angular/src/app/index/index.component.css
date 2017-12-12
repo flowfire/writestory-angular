@@ -1,0 +1,19 @@
+div.root {
+    max-width: 1200px;
+    margin: 1rem auto;
+}
+
+mat-card {}
+
+section {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    padding: 1rem 2rem;
+    margin-top: .5rem;
+    position: relative;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+section:last-of-type {
+    border: none;
+}

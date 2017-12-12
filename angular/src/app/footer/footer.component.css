@@ -1,0 +1,71 @@
+section {
+    background: #FFF;
+}
+
+ul {
+    padding: 0;
+    margin: .5rem 1rem 1rem;
+}
+
+.title {
+    height: 2rem;
+    line-height: 2rem;
+    border-bottom: 1px solid #CCC;
+    padding: .5rem 1.5rem .25rem;
+    font-size: .8rem;
+    font-weight: bold;
+    color: #666;
+}
+
+li {
+    list-style: none;
+    line-height: 2rem;
+    font-size: 0.9rem;
+    color: #333;
+    padding-left: 0.5rem;
+    cursor: pointer;
+    transition: all ease .2s;
+}
+
+li:hover {
+    background: rgba(0, 0, 0, .05);
+}
+
+@media screen and (min-width: 1024px) {
+    footer {
+        border-top: 1px solid #CCC;
+        margin: 1rem 0 0;
+        font-family: Consolas, 微软雅黑;
+    }
+    .main {
+        min-width: 960px;
+        max-width: 1200px;
+        display: flex;
+        margin: 1rem auto;
+    }
+    section {
+        flex: 1;
+        margin: 0;
+        padding: 0;
+    }
+    section:not(:first-of-type):not(:last-of-type) {
+        margin: 0 1rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    section {
+        margin: 1rem 1rem .5rem;
+        padding-bottom: .5rem;
+    }
+    li {
+        height: 3rem;
+        line-height: 3rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .title {
+        padding: 1rem;
+    }
+}

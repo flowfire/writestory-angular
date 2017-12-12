@@ -1,0 +1,36 @@
+<section>
+    <ng-container *ngFor="let story of test">
+        <div class="line"></div>
+        <mat-card class="content">
+            <mat-card-content>
+                <div class="main">主线剧情
+                </div>
+                <div class="line"></div>
+                <div class="operation">
+                    <button mat-icon-button color="warn" (click)="likeStory(story['id'])" [title]="isLogin ? '喜欢该段' : '登陆后才能点赞'" [disabled]="!isLogin">
+                            <mat-icon>{{ story.like ? "favorite":"favorite_border" }}</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="showComment(story['id'])">
+                        <mat-icon>comment</mat-icon>
+                    </button>
+                    <button mat-icon-button [routerLink]="['/paragraph', 1]">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+    <ng-container *ngIf="!false; else contentLoadedCard">
+        <div class="line"></div>
+        <mat-card>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card>
+    </ng-container>
+    <ng-template #contentLoadedCard>
+        <div class="line"></div>
+        <mat-card>
+            <mat-card-title>未完待续...</mat-card-title>
+        </mat-card>
+    </ng-template>
+</section>
+<app-comment [(state)]="commentState" [storyId]="commentStoryId"></app-comment>

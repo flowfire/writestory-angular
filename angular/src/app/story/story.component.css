@@ -1,0 +1,37 @@
+section {
+    max-width: 1200px;
+    margin: 1rem auto;
+    display: flex;
+    flex-flow: column;
+}
+
+section>.line {
+    flex: 0 1.5rem;
+    width: .1rem;
+    background: rgba(0, 0, 0, .15);
+    align-self: center;
+}
+
+section>.line:first-of-type {
+    display: none;
+}
+
+section mat-card-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+section mat-card div.main {
+    flex: 10;
+}
+
+section mat-card div.line {
+    flex: 0 2px;
+    margin: 0 1rem;
+    background: rgba(0, 0, 0, .15);
+    align-self: stretch;
+}
+
+section mat-card div.operation {
+    flex: 0;
+}

@@ -1,0 +1,15 @@
+<main>
+    <mat-card>
+        <mat-card-content>
+            <mat-card-title>开始一个新的故事</mat-card-title>
+            <mat-form-field>
+                <textarea matInput placeholder="在此输入您的故事开头"></textarea>
+                <mat-hint>注意：提交后将无法修改，即使是错别字。因此提交前请确认内容。</mat-hint>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-content>
+            <button [disabled]="limit === 0" mat-raised-button color="primary">提交</button>
+            <mat-hint>{{ limit === 0 ? "没有开始新故事的权限，去续写其他人的故事吧~" : "您目前还能开始 " + limit + " 个新的故事。" }}</mat-hint>
+        </mat-card-content>
+    </mat-card>
+</main>

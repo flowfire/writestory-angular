@@ -1,0 +1,10 @@
+<mat-card [@state]="innerState">
+    <mat-form-field>
+        <textarea matInput placeholder="从此处续写" [disabled]="!isLogin"></textarea>
+    </mat-form-field>
+    <section class="submit-actions">
+        <button mat-raised-button color="primary" [disabled]="!isLogin">发布</button>
+        <mat-hint *ngIf="!isLogin">您需要先登陆才能续写故事</mat-hint>
+        <button mat-button class="close" (click)="innerState = 'hide'">收起</button>
+    </section>
+</mat-card>

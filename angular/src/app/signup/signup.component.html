@@ -1,0 +1,51 @@
+<main>
+    <mat-card>
+        <ng-container *ngIf="!signupSuccess; else afterSignup">
+            <mat-card-title>注册</mat-card-title>
+            <mat-card-subtitle>注册为 WriteStory 用户</mat-card-subtitle>
+            <mat-card-content>
+                <mat-form-field>
+                    <input [errorStateMatcher]="validator.username" matInput placeholder="请输入用户名" [(ngModel)]="username">
+                    <mat-error>{{ validator.username.errorMessage }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="请输入密码" [(ngModel)]="password">
+                </mat-form-field>
+                <mat-form-field>
+                    <span matPrefix *ngIf="signupBy[0] === 'phone'">{{ countryCode }}</span>
+                    <input matInput [placeholder]="signupBy[1]" [(ngModel)]="account">
+                    <button mat-button matSuffix (click)="changeSignupBy()">{{ signupBy[2] }}</button>
+                </mat-form-field>
+                <mat-form-field *ngIf="signupBy[0] === 'phone'">
+                    <mat-select [(ngModel)]="countryCode" placeholder="请选择国家/地区">
+                        <mat-option value="">手动输入</mat-option>
+                        <mat-option *ngFor="let c of prePhone" [value]="c[0]">{{c[1]}}</mat-option>
+                        <mat-option value="">手动输入</mat-option>
+                    </mat-select>
+                    <mat-hint>请选择您的手机号所在的国家/地区</mat-hint>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="请输入验证码" [(ngModel)]="captcha">
+                    <button mat-button matSuffix (click)="sendCaptcha()" [disabled]="sendCaptchaLoading">{{ sendCaptchaTip }}</button>
+                    <mat-hint>请输入发送到您{{ signupBy[0] === 'phone' ? "手机上" : "邮箱中" }}的验证码。5分钟内有效，每个{{ signupBy[0] === 'phone' ? "手机" : "邮箱" }}每分钟仅能重发一次。</mat-hint>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-content class="actions">
+                <button mat-raised-button color="primary" [disabled]="signupLoading" (click)="signup()">注册</button>
+            </mat-card-content>
+            <mat-card-footer>
+                <mat-progress-bar mode="indeterminate" *ngIf="signupLoading"></mat-progress-bar>
+            </mat-card-footer>
+        </ng-container>
+        <ng-template #afterSignup>
+            <mat-card-title>注册成功</mat-card-title>
+            <mat-card-subtitle>您已成功注册成为 WriteStory 用户</mat-card-subtitle>
+            <mat-card-content class="actions">
+                点击此处立即登陆：<button color="primary" mat-raised-button routerLink="/login">登录</button>
+                <br/>如果你已经不记得自己设置的密码，点击此处找回：
+                <button mat-button routerLink="/findpassword">找回密码</button>
+            </mat-card-content>
+        </ng-template>
+    </mat-card>
+    <div></div>
+</main>

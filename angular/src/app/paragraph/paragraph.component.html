@@ -1,0 +1,39 @@
+<section>
+    <mat-card>
+        <mat-card-subtitle>
+            <span>作者：XXXX</span>
+            <span class="blank"></span>
+            <span>时间：201555555</span>
+
+        </mat-card-subtitle>
+        <mat-card-content class="main-card">
+            <div class="main">
+                asdasdasd
+            </div>
+            <div class="line"></div>
+            <div class="actions">
+                <button mat-raised-button color="primary" (click)="showContinue(storyId)">续写该段</button>
+                <button mat-button color="primary" [routerLink]="['/story', 2]">继续阅读</button>
+                <button mat-icon-button color="primary" (click)="showComment(storyId)">
+                    <mat-icon>comment</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" [disabled]="!isLogin" [title]="isLogin? '' : '登陆后才能点赞'">
+                    <mat-icon>{{ likeStory ? "favorite":"favorite_border" }}</mat-icon>
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <div class="line"></div>
+    <mat-card>
+        <mat-card-subtitle>所有分支</mat-card-subtitle>
+
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item *ngFor="let i of [1,2,3,4,5,6,7,8]" [routerLink]="['/paragraph', i]">测试a</mat-list-item>
+            </mat-list>
+        </mat-card-content>
+
+    </mat-card>
+</section>
+<app-comment [(state)]="commentState" [storyId]="commentStoryId"></app-comment>
+<app-continue [(state)]="continueState" [storyId]="continueStoryId"></app-continue>
