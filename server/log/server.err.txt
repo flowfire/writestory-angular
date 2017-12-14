@@ -1,32 +1,13 @@
-(node:12196) ExperimentalWarning: The http2 module is an experimental API.
-(node:12196) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 3): Error: Cannot find module 'monk'
-(node:12196) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
-(node:15664) ExperimentalWarning: The http2 module is an experimental API.
-events.js:183
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: listen EADDRINUSE :::443
-    at Object._errnoException (util.js:1024:11)
-    at _exceptionWithHostPort (util.js:1046:20)
-    at Http2SecureServer.setupListenHandle [as _listen2] (net.js:1351:14)
-    at listenInCluster (net.js:1392:12)
-    at Http2SecureServer.Server.listen (net.js:1476:7)
-    at new SELF (C:\files\writestory\fffmwk\lib\entry.js:46:24)
-    at Object.<anonymous> (C:\files\writestory\fffmwk\lib\server.js:2:14)
-    at Module._compile (module.js:635:30)
-    at Object.Module._extensions..js (module.js:646:10)
-    at Module.load (module.js:554:32)
-(node:8960) ExperimentalWarning: The http2 module is an experimental API.
-[ioredis] Unhandled error event: Error: connect ETIMEDOUT
-    at Socket.<anonymous> (C:\files\writestory\server\node_modules\ioredis\lib\redis.js:289:21)
-    at Object.onceWrapper (events.js:313:30)
-    at emitNone (events.js:106:13)
-    at Socket.emit (events.js:208:7)
-    at Socket._onTimeout (net.js:407:8)
-    at ontimeout (timers.js:475:11)
-    at tryOnTimeout (timers.js:310:5)
-    at Timer.listOnTimeout (timers.js:270:5)
-(node:2400) ExperimentalWarning: The http2 module is an experimental API.
-(node:14968) ExperimentalWarning: The http2 module is an experimental API.
-(node:11112) ExperimentalWarning: The http2 module is an experimental API.
+(node:12052) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): TypeError: "callback" argument must be a function
+(node:12052) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:3988) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): TypeError: "callback" argument must be a function
+(node:3988) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:14496) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): TypeError: "callback" argument must be a function
+(node:14496) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:14496) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 4): TypeError: "callback" argument must be a function
+(node:11468) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): TypeError: "callback" argument must be a function
+(node:11468) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:1780) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): TypeError: "callback" argument must be a function
+(node:1780) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:4868) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): TypeError: "callback" argument must be a function
+(node:4868) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.

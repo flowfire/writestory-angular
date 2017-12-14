@@ -1,8 +1,10 @@
 const Redis = require("ioredis");
 const redis = Redis.createClient();
+const TIMEOUT = 1000;
 
 module.exports = {
     get: async(key, expried = 0, getter = () => "") => {
+        let timer = setTimeout()
         let result = {
             hit: true,
             value: null,

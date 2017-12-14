@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // user service
 import { ApiConfigService } from "./services/apiConfig.service";
 import { LocalStorageService } from "./services/localStorage.service";
+import { AjaxService } from "./services/ajax.service";
 
 // user component
 import { AppComponent } from './app.component';
@@ -52,6 +53,7 @@ import { NewstoryComponent } from './newstory/newstory.component';
   providers: [
     ApiConfigService,
     LocalStorageService,
+    AjaxService,
   ],
   bootstrap: [AppComponent]
 })

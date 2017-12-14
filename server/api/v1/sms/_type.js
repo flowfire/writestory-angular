@@ -2,7 +2,7 @@ const sendSMS = require("../../../functions/sendSMS");
 const redis = require("../../../functions/redis");
 const query = require("querystring");
 
-module.exports = async ({ param, body, request }) => {
+module.exports = async({ param, body, request }) => {
     let response = {
         headers: {},
         body: {},
@@ -13,6 +13,11 @@ module.exports = async ({ param, body, request }) => {
     const timeLimit = 60 * 60 * 24;
     const freqLimit = 20; // 每天 20 次
     let apiHistroy = await redis.get("sendSMS-ip-" + ip, timeLimit, () => 1);
+
+    return {
+        body: apiHistroy
+    }
+
     if (apiHistroy.hit) {
         if (+apiHistroy.value >= freqLimit) {
             response.body = {
@@ -22,6 +27,7 @@ module.exports = async ({ param, body, request }) => {
             return response;
         }
     }
+
 
     // 检查手机号。
     body = query.parse(body);
@@ -60,6 +66,7 @@ module.exports = async ({ param, body, request }) => {
         return Math.floor((Math.random() * 1000000)).toString().padStart(6, '0');
     });
 
+
     // 检查 1分钟内是否发送过验证码（以手机号标记）
     let sendHistroy = await redis.get("sendSMS-" + values.type + "-sent-" + number, 60, () => true);
     if (sendHistroy.hit) {
@@ -69,11 +76,13 @@ module.exports = async ({ param, body, request }) => {
         };
     }
 
+
     // 调用接口发送短信
     let responseText = await sendSMS({
         number: number,
         message: values.message + codeHistory.value,
     });
+
 
     // 记录短信发送次数
     await redis.set("sendSMS-ip-" + ip, timeLimit, old => +old + 1);
