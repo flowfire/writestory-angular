@@ -1,26 +1,47 @@
 import { Injectable } from '@angular/core';
 
-import { ApiConfigService } from "./apiConfig.service";
+const ajaxPath: string = "https://localhost/api/v1/";
 
 @Injectable()
 export class AjaxService {
-    host: string;
-    init: any = {
-        method: "POST",
-        headers: new Headers,
-        mod: "cors",
-        cache: "no-store",
-        redirect: "follow",
-        body: new URLSearchParams,
-    };
+    init(): any {
+        let options: any = {};
+        options.method = "POST";
+        options.headers = new Headers;
+        options.mod = "cors";
+        options.cache = "no-store";
+        options.redirect = "follow";
+        options.body = new URLSearchParams;
 
-    async sendSMS(number: string, type: string = "signup") {
-        fetch(`${this.host}/sms/${type}`, init)
+        return options;
     }
 
-    constructor(private apiConfig: ApiConfigService) {
-        this.host = this.apiConfig.ajaxPath;
-        this.init.headers.append("Content-Type", "application/x-www-form-urlencoded");
+    async sendSMS(number: string, type: string = "signup") {
+        let init = this.init();
+        init.body.append("number", number);
+        let response = await fetch(`${ajaxPath}/sms/${type}`, init);
+        console.log(response);
+    }
+
+    async sendMail(address: string, type: string = "signup") {
+        let init = this.init();
+        init.body.append("address", address);
+        let response = await fetch(`${ajaxPath}/mail/${type}`, init);
+        console.log(response);
+    }
+
+    async signup(account: string, username: string, password: string, captcha: string) {
+        let init = this.init();
+        init.body.append("account", account);
+        init.body.append("username", username);
+        init.body.append("password", password);
+        init.body.append("captcha", captcha);
+        let response = await fetch(`${ajaxPath}/mail/${type}`, init);
+        console.log(response);
+
+    }
+
+    constructor() {
     }
 
 }

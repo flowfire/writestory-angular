@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { AjaxService } from "../services/ajax.service";
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -80,8 +82,15 @@ export class SignupComponent implements OnInit {
         }
         return func;
       })();
-
-      changeValue();
+      switch (this.signupBy[0]) {
+        case "phone":
+          await this.ajax.sendSMS(this.countryCode + this.account);
+          break;
+        case "email":
+          await this.ajax.sendMail(this.account);
+          console.log(this.countryCode);
+          break;
+      }
 
     }
     await fetch("/sdasd");
@@ -119,7 +128,7 @@ export class SignupComponent implements OnInit {
     ["+86", "中国"],
     ["+886", "呆湾（雾）"],
   ];
-  constructor(private router: Router) { }
+  constructor(private router: Router, private ajax: AjaxService) { }
 
   ngOnInit() {
   }

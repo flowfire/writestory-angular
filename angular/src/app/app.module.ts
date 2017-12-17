@@ -9,7 +9,6 @@ import { MaterialModule } from "./material/material.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // user service
-import { ApiConfigService } from "./services/apiConfig.service";
 import { LocalStorageService } from "./services/localStorage.service";
 import { AjaxService } from "./services/ajax.service";
 
@@ -51,7 +50,6 @@ import { NewstoryComponent } from './newstory/newstory.component';
     MaterialModule,
   ],
   providers: [
-    ApiConfigService,
     LocalStorageService,
     AjaxService,
   ],

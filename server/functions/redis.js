@@ -3,8 +3,7 @@ const redis = Redis.createClient();
 const TIMEOUT = 1000;
 
 module.exports = {
-    get: async(key, expried = 0, getter = () => "") => {
-        let timer = setTimeout()
+    get: async (key, expried = 0, getter = () => "") => {
         let result = {
             hit: true,
             value: null,
@@ -23,7 +22,7 @@ module.exports = {
         return result;
     },
 
-    set: async(key, expried = 0, setter = old => old) => {
+    set: async (key, expried = 0, setter = old => old) => {
         let result = {
             old: null,
             new: null,
@@ -37,7 +36,7 @@ module.exports = {
         return result;
     },
 
-    del: async(key, ...keys) => {
+    del: async (key, ...keys) => {
         redis.del(key, ...keys);
         return;
     }
