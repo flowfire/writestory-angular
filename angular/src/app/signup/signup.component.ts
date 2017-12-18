@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { MatSnackBar } from "@angular/material";
 import { AjaxService } from "../services/ajax.service";
 
 @Component({
@@ -67,33 +67,38 @@ export class SignupComponent implements OnInit {
 
   async sendCaptcha() {
     this.sendCaptchaLoading = true;
-    {
-      let changeValue = (() => {
-        let timer = 60;
-        let func = () => {
-          if (timer === 0) {
-            this.sendCaptchaTip = "发送验证码";
-            this.sendCaptchaLoading = false;
-          } else {
-            this.sendCaptchaTip = timer + "s 后重发";
-            timer--;
-            setTimeout(func, 1000);
-          }
-        }
-        return func;
-      })();
-      switch (this.signupBy[0]) {
-        case "phone":
-          await this.ajax.sendSMS(this.countryCode + this.account);
-          break;
-        case "email":
-          await this.ajax.sendMail(this.account);
-          console.log(this.countryCode);
-          break;
-      }
-
+    let captRes;
+    switch (this.signupBy[0]) {
+      case "phone":
+        captRes = await this.ajax.sendSMS(this.countryCode + this.account);
+        break;
+      case "email":
+        captRes = await this.ajax.sendMail(this.account);
+        break;
     }
-    await fetch("/sdasd");
+    let changeValue = (() => {
+      let timer = 60;
+      let func = () => {
+        if (timer === 0) {
+          this.sendCaptchaTip = "发送验证码";
+          this.sendCaptchaLoading = false;
+        } else {
+          this.sendCaptchaTip = timer + "s 后重发";
+          timer--;
+          setTimeout(func, 1000);
+        }
+      }
+      return func;
+    })();
+
+    let data = await captRes.json();
+    console.log(data);
+    this.snakeBar.open(data.message, "确定", { duration: 2000 });
+    if (data.success) {
+      changeValue();
+    } else {
+      this.sendCaptchaLoading = false;
+    }
   }
 
   async signup() {
@@ -128,7 +133,8 @@ export class SignupComponent implements OnInit {
     ["+86", "中国"],
     ["+886", "呆湾（雾）"],
   ];
-  constructor(private router: Router, private ajax: AjaxService) { }
+
+  constructor(private router: Router, private ajax: AjaxService, private snakeBar: MatSnackBar) { }
 
   ngOnInit() {
   }

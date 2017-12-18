@@ -2,7 +2,7 @@ const sendSMS = require("../../../functions/sendSMS");
 const redis = require("../../../functions/redis");
 const query = require("querystring");
 
-module.exports = async({ param, body, request }) => {
+module.exports = async ({ param, body, request }) => {
     let response = {
         headers: {},
         body: {},
@@ -13,10 +13,6 @@ module.exports = async({ param, body, request }) => {
     const timeLimit = 60 * 60 * 24;
     const freqLimit = 20; // 每天 20 次
     let apiHistroy = await redis.get("sendSMS-ip-" + ip, timeLimit, () => 1);
-
-    return {
-        body: apiHistroy
-    }
 
     if (apiHistroy.hit) {
         if (+apiHistroy.value >= freqLimit) {

@@ -85,12 +85,20 @@ module.exports = async ({ param, body, request }) => {
     let subject = values.subject;
 
     // 发送邮件
+    console.log("beforeSend");
+    console.log({
+        from: from,
+        to: address,
+        subject: subject,
+        body: content,
+    });
     await sendEmail({
         from: from,
         to: address,
         subject: subject,
         body: content,
     });
+    console.log("aftersend");
 
     // 返回值
     response.body = {
