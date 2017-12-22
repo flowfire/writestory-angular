@@ -3,6 +3,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { MatSnackBar } from "@angular/material";
 import { AjaxService } from "../services/ajax.service";
+import { LocalStorageService } from "../services/localStorage.service";
 
 @Component({
   selector: 'app-signup',
@@ -13,15 +14,14 @@ export class SignupComponent implements OnInit {
 
   username: string = "";
   password: string = "";
+  showPassword: boolean = false;
   countryCode: string = "+86";
   account: string = "";
   captcha: string = "";
+
   sendCaptchaLoading: boolean = false;
   sendCaptchaTip: string = "发送验证码";
-
   signupLoading: boolean = false;
-
-  signupSuccess: boolean = false;
 
   signupBy: any[] = ["phone", "请输入手机号码", "使用邮箱注册"];
   changeSignupBy(): void {
@@ -34,34 +34,6 @@ export class SignupComponent implements OnInit {
       default:
         break;
 
-    }
-  }
-  validator: any = {
-    username: {
-      isErrorState: obj => {
-        if (!obj.touched) return false;
-        this.validator.username.isError = true;
-
-        // check
-        if (obj.value === "") {
-          this.validator.username.errorMessage = "请输入用户名";
-          return true;
-        }
-        if (obj.value.length > 20) {
-          this.validator.username.errorMessage = "用户名不能超过20个字符";
-          return true;
-        }
-        if (obj.value.indexOf("@") !== -1 || obj.value.indexOf("+") !== -1 || obj.value.indexOf(" ") !== -1) {
-          this.validator.username.errorMessage = "用户名不能包含 “@”、“+” 或空格";
-          return true;
-        }
-
-        // check end
-        this.validator.username.isError = false;
-        return false;
-      },
-      isError: false,
-      errorMessage: ""
     }
   }
 
@@ -91,10 +63,8 @@ export class SignupComponent implements OnInit {
       return func;
     })();
 
-    let data = await captRes.json();
-    console.log(data);
-    this.snakeBar.open(data.message, "确定", { duration: 2000 });
-    if (data.success) {
+    this.snackBar.open(captRes.message, "确定", { duration: 2000 });
+    if (captRes.success) {
       changeValue();
     } else {
       this.sendCaptchaLoading = false;
@@ -104,13 +74,23 @@ export class SignupComponent implements OnInit {
   async signup() {
     this.signupLoading = true;
 
-    setTimeout(() => {
-      this.signupSuccess = true;
-    }, 1000);
-  }
+    let password = this.password;
+    let username = this.username;
 
-  afterSignUp() {
-    this.router.navigate(['/login'], { replaceUrl: true });
+    let account = this.account;
+    if (this.signupBy[0] === "phone") account = this.countryCode + account;
+
+    let captcha = this.captcha;
+    let response = await this.ajax.signup(account, username, password, captcha);
+    this.signupLoading = false;
+    this.snackBar.open(response.message, "确定", { duration: 2000 });
+    if (!response.success) return;
+    this.storage.set("username", response.info.username);
+    this.storage.set("account", response.info.account);
+    this.storage.set("token", response.info.uid);
+    this.storage.set("token", response.token);
+    this.storage.set("isLogin", true);
+    this.router.navigate(['/'], { replaceUrl: true });
   }
 
 
@@ -130,11 +110,11 @@ export class SignupComponent implements OnInit {
     ["+82", "韩国"],
     ["+852", "香港特别行政区"],
     ["+853", "澳门特别行政区"],
-    ["+86", "中国"],
-    ["+886", "呆湾（雾）"],
+    ["+86", "中国大陆"],
+    ["+886", "台湾"],
   ];
 
-  constructor(private router: Router, private ajax: AjaxService, private snakeBar: MatSnackBar) { }
+  constructor(private router: Router, private ajax: AjaxService, private snackBar: MatSnackBar, private storage: LocalStorageService) { }
 
   ngOnInit() {
   }

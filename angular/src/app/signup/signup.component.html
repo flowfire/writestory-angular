@@ -5,11 +5,15 @@
             <mat-card-subtitle>注册为 WriteStory 用户</mat-card-subtitle>
             <mat-card-content>
                 <mat-form-field>
-                    <input [errorStateMatcher]="validator.username" matInput placeholder="请输入用户名" [(ngModel)]="username">
-                    <mat-error>{{ validator.username.errorMessage }}</mat-error>
+                    <input matInput placeholder="请输入用户名" [(ngModel)]="username" name="username">
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput placeholder="请输入密码" [(ngModel)]="password">
+                    <input matInput placeholder="请输入密码" [(ngModel)]="password" #passwordInput [type]="showPassword ? 'text' : 'password'">
+                    <button mat-icon-button matSuffix>
+                        <mat-icon (click)="showPassword = !showPassword">
+                            {{showPassword ? 'visibility_off' : 'visibility'}}
+                        </mat-icon>
+                    </button>
                 </mat-form-field>
                 <mat-form-field>
                     <span matPrefix *ngIf="signupBy[0] === 'phone'">{{ countryCode }}</span>

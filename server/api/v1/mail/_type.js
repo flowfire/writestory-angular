@@ -1,10 +1,10 @@
 const redis = require("../../../functions/redis");
 const query = require("querystring");
-const from = "Support Of WriteStory";
+const from = "WriteStory Robot";
 const sendEmail = require("../../../functions/sendMail");
 const mailStyle = require("../../../functions/mailStyle");
 
-module.exports = async ({ param, body, request }) => {
+module.exports = async({ param, body, request }) => {
     let response = {
         headers: {},
         body: {},
@@ -85,20 +85,12 @@ module.exports = async ({ param, body, request }) => {
     let subject = values.subject;
 
     // 发送邮件
-    console.log("beforeSend");
-    console.log({
-        from: from,
-        to: address,
-        subject: subject,
-        body: content,
-    });
     await sendEmail({
         from: from,
         to: address,
         subject: subject,
         body: content,
     });
-    console.log("aftersend");
 
     // 返回值
     response.body = {

@@ -11,12 +11,12 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   isLogin: boolean;
-  userProfile: any;
+  username: any;
 
   updateProfile: Function = () => {
     this.isLogin = this.storage.get("isLogin", false);
-    this.userProfile = this.storage.get("userProfile", {
-      name: "No Such User"
+    this.username = this.storage.get("username", {
+      name: "N/A"
     });
   }
 

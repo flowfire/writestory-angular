@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocalStorageService } from "../services/localStorage.service";
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { AjaxService } from "../services/ajax.service";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: 'app-login',
@@ -14,33 +15,35 @@ export class LoginComponent implements OnInit {
   loginLoading: boolean = false;
   username: string;
   password: string;
+  showPassword: boolean = false;
 
 
   async login(): Promise<void> {
     let username = this.username;
     let password = this.password;
     this.loginLoading = true;
-    await new Promise(res => {
-      setTimeout(() => {
-        res();
-        this.storage.set("isLogin", true);
-      }, 3000);
-    });
+    let response = await this.ajax.login(username, password);
     this.loginLoading = false;
+    this.snackBar.open(response.message, "确定", { duration: 2000 });
+    if (!response.success) return;
+    this.storage.set("username", response.info.username);
+    this.storage.set("account", response.info.account);
+    this.storage.set("token", response.info.uid);
+    this.storage.set("token", response.token);
+    this.storage.set("isLogin", true);
+    this.router.navigate(['/'], { replaceUrl: true });
   }
 
 
   checkLogin: Function = () => {
     this.isLogin = this.storage.get("isLogin", false);
-    if (this.isLogin) {
-      console.log(this.location.path());
-    }
   }
 
   constructor(
     private storage: LocalStorageService,
     private router: Router,
-    private location: Location,
+    private ajax: AjaxService,
+    private snackBar: MatSnackBar,
   ) {
   }
 

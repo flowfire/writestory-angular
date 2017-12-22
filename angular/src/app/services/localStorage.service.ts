@@ -26,7 +26,7 @@ export class LocalStorageService {
     }
 
 
-    set(key, value): void {
+    set(key, value = null): void {
         value = JSON.stringify(value);
 
         let oldValue = localStorage.getItem("key");
@@ -41,7 +41,7 @@ export class LocalStorageService {
             url: null,
         });
     }
-    setSession(key, value): void {
+    setSession(key, value = null): void {
         value = JSON.stringify(value);
 
         let oldValue = sessionStorage.getItem("key");

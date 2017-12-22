@@ -1,31 +1,20 @@
 const config = require("./smtp.config");
-const mail = require("nodemailer");
+const mailgun = require("mailgun-js")({
+    apiKey: config.apiKey,
+    domain: config.domain,
+});
 
 module.exports = async({ from, to, subject, body }) => {
 
-    let sender = mail.createTransport({
-        host: config.host,
-        port: 587,
-        secure: false,
-        auth: {
-            user: config.user,
-            pass: config.pass,
-        }
+    return await new Promise((res, rej) => {
+        mailgun.messages().send({
+            from: `${from} <${config.from}>`,
+            to: to,
+            subject: subject,
+            html: body,
+        }, (err, body) => {
+            if (err) rej(err);
+            else res(body);
+        });
     });
-
-    let mailOption = {
-        from: from + " <" + config.user + ">",
-        to: to,
-        subject: subject,
-        html: body,
-    };
-
-
-    await new Promise((res, rej) => {
-        sender.sendMail(mailOption, (err, info) => {
-            if (err) rej();
-            else res(info);
-        })
-    });
-    return;
 }

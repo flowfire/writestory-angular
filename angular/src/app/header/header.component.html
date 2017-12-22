@@ -8,7 +8,7 @@
             <button mat-raised-button color="accent" (click)="toSignup()">注册</button>
         </ng-container>
         <ng-template #afterlogin>
-            <button mat-button [matMenuTriggerFor]="afterLoginMenu">{{ userProfile.name }}</button>
+            <button mat-button [matMenuTriggerFor]="afterLoginMenu">{{ username }}</button>
             <mat-menu #afterLoginMenu>
                 <button mat-menu-item routerLink="/userprofile">我的资料 (invalid)</button>
                 <button mat-menu-item routerLink="/newstory">新的故事</button>
